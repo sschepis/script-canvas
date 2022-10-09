@@ -1,0 +1,58 @@
+// this file is part of the test suite for the script-canvas project
+// we use the mocha test framework and the chai assertion library
+//
+// to run the tests, run the following command from the root of the project:
+//   npm test
+//
+// to run the tests in watch mode, run the following command from the root of the project:
+//   npm run test:watch
+//
+// to run the tests in debug mode, run the following command from the root of the project:
+//   npm run test:debug
+//
+<html>
+  <body>
+    <script type="module">
+      import ScriptCanvas from "../script-canvas.js";
+      
+      import { mocha, sessionFinished, sessionFailed } from '@web/test-runner-mocha';
+      import { expect } from '@open-wc/testing';
+
+      try {
+        // setup mocha
+        mocha.setup({ ui: 'bdd' });
+
+        // write your tests inline
+        describe("script-canvas", () => {
+
+          // 1. the element should be defined
+          it("should be defined", () => {
+            expect(ScriptCanvas).to.be.a("function");
+          });
+        
+          // 2. the element should be able to be created
+          it("should be able to be created", () => {
+            const element = new ScriptCanvas();
+            expect(element).to.be.an.instanceof(ScriptCanvas);
+          });
+        
+          // 3. the element should be able to be created with a script
+          it("should be able to be created with a script", () => {
+            const element = new ScriptCanvas({ script: "x = 1" });
+            expect(element).to.be.an.instanceof(ScriptCanvas);
+          });
+
+        });
+
+        // run the tests, and notify the test runner after finishing
+        mocha.run(() => {
+          sessionFinished();
+        });
+      } catch (error) {
+        console.error(error);
+        // notify the test runner about errors
+        sessionFailed(error);
+      }
+    </script>
+  </body>
+</html>

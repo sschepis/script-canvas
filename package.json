@@ -1,0 +1,45 @@
+{
+  "name": "script-canvas",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A webcomponent which implements a canvas with a script attribute.",
+  "main": "script-canvas.js",
+  "module": "script-canvas.js",
+  "scripts": {
+    "test": "web-test-runner test/**/*.test.html --node-resolve",
+    "watch": "web-test-runner test/**/*.test.html --node-resolve --watch",
+    "coverage": "web-test-runner test/**/*.test.html --node-resolve --coverage",
+    "transform": "web-test-runner test/**/*.test.html --node-resolve --esbuild-target auto",
+    "build": "esbuild script-canvas.js --bundle --outfile=script-canvas.min.js --minify --sourcemap",
+    "start": "es-dev-server --node-resolve --watch --open",
+    "lint": "eslint . --ext .js,.html",
+    "format": "prettier --write .",
+    "publish": "npm run build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sschepis/script-canvas.git"
+  },
+  "keywords": [
+    "script",
+    "canvas",
+    "dwitter",
+    "canvas",
+    "art"
+  ],
+  "author": "Sebastian Schepis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sschepis/script-canvas/issues"
+  },
+  "homepage": "https://github.com/sschepis/script-canvas#readme",
+  "devDependencies": {
+    "@open-wc/testing": "^3.1.6",
+    "@web/test-runner": "^0.14.0",
+    "@web/test-runner-mocha": "^0.7.5",
+    "es-dev-server": "^2.1.0",
+    "esbuild": "^0.15.10",
+    "eslint": "^8.25.0",
+    "prettier": "^2.7.1"
+  }
+}
