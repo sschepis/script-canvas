@@ -10,11 +10,12 @@
     "watch": "web-test-runner test/**/*.test.html --node-resolve --watch",
     "coverage": "web-test-runner test/**/*.test.html --node-resolve --coverage",
     "transform": "web-test-runner test/**/*.test.html --node-resolve --esbuild-target auto",
-    "build": "esbuild script-canvas.js --bundle --outfile=script-canvas.min.js --minify --sourcemap",
+    "build": "esbuild script-canvas.js --bundle --outfile=./dist/script-canvas.min.js --minify --sourcemap",
     "start": "es-dev-server --node-resolve --watch --open",
     "lint": "eslint . --ext .js,.html",
     "format": "prettier --write .",
-    "publish": "npm run build && npm publish"
+    "publish": "npm run build && npm publish",
+    "example": "es-dev-server --node-resolve --watch --open --app-index ./example/index.html"
   },
   "repository": {
     "type": "git",

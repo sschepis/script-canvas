@@ -52,10 +52,6 @@ export default class ScriptCanvas extends HTMLCanvasElement {
         this._active = true;
         this._scriptInterval = setInterval(this._scriptRunner, 1000 / this.fps);
       }
-    } else if (name == "width") {
-      this.width = newValue;
-    } else if (name == "height") {
-      this.height = newValue;
     } else if (name == "paused") {
       this._paused = newValue;
     } else if (name == "active") {
@@ -229,7 +225,6 @@ export default class ScriptCanvas extends HTMLCanvasElement {
       l10,
       l2,
       max,
-      S,
       pow,
       R,
       ro,
@@ -259,7 +254,7 @@ export default class ScriptCanvas extends HTMLCanvasElement {
       runInContext.call(this._context);
 
       // increment the time
-      this._context.t += 1 / this._fps;
+      this._context.t += 0.01;
     } catch (e) {
       clearInterval(this._scriptInterval);
       this._scriptInterval = undefined;
