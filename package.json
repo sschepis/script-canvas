@@ -1,5 +1,5 @@
 {
-  "name": "script-canvas",
+  "name": "@sschepis/script-canvas",
   "version": "1.0.0",
   "type": "module",
   "description": "A webcomponent which implements a canvas with a script attribute.",
@@ -14,7 +14,7 @@
     "start": "es-dev-server --node-resolve --watch --open",
     "lint": "eslint . --ext .js,.html",
     "format": "prettier --write .",
-    "publish": "npm run build && npm publish",
+    "npm-publish": "npm run build && npm publish",
     "example": "es-dev-server --node-resolve --watch --open --app-index ./example/index.html"
   },
   "repository": {

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <canvas id="canvas" is="script-canvas"></canvas>
+    <script type="module">
+      // this is a simple example of how to use the script-canvas component.
+      // it is not a complete example, but it should give you an idea of how to use it.
+      // for a complete example, see the test suite in the test directory.
+      import ScriptCanvas from "../script-canvas.js";
+      const canvas = document.querySelector("#canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const script = "for(i=2e4,f=(X,Y,n=0)=>Y<9?f(X*X-Y*Y-.8,2*X*Y+.6,n+.3):x.fillStyle=`hsl(${i/4},99%,${n*n}%`;i--;x.fillRect(i,t*60,1,999))f(i/480-2,1-t/9)";
+      canvas.setAttribute("script", script);
+    </script>
+  </body>
+</html>
