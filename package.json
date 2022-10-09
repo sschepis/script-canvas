@@ -14,7 +14,7 @@
     "start": "es-dev-server --node-resolve --watch --open",
     "lint": "eslint . --ext .js,.html",
     "format": "prettier --write .",
-    "publish": "npm run build && npm publish"
+    "npm-publish": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
