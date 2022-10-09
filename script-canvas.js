@@ -98,6 +98,23 @@ export default class ScriptCanvas extends HTMLCanvasElement {
     this._context = !this._context ? this.createContext() : this._context;
   }
 
+  pause() {
+    this._paused = true;
+  }
+
+  resume() {
+    this._paused = false;
+  }
+
+  stop() {
+    this._active = false;
+    this._paused = true;
+  }
+
+  start() {
+
+  }
+
   createContext() {
     const c = this;
     const x = c.getContext("2d");
@@ -399,14 +416,33 @@ export default class ScriptCanvas extends HTMLCanvasElement {
           this.c = c; // color
         };
       }, // tiny Object class 
-      Mesh: class Mesh {
+      tMesh: class Mesh {
         constructor (vertices, faces, uvs) {
           this.vertices = vertices; // vertices
           this.faces = faces; // faces
           this.uvs = uvs; // uvs
         }
       }, // tiny Mesh class
-      Material: class Material {
+      tLine: class Line {
+        constructor (x1, y1, z1, x2, y2, z2, c) {
+          this.x1 = x1; // x position
+          this.y1 = y1; // y position
+          this.z1 = z1; // z position
+          this.x2 = x2; // x position
+          this.y2 = y2; // y position
+          this.z2 = z2; // z position
+          this.c = c; // color
+        }
+      }, // tiny Line class
+      tPoint: class Point {
+        constructor (x, y, z, c) {
+          this.x = x; // x position
+          this.y = y; // y position
+          this.z = z; // z position
+          this.c = c; // color
+        }
+      }, // tiny Point class
+      tMaterial: class Material {
         constructor (color, texture, emissive, specular, shininess, reflectivity, opacity, transparent) {
           this.color = color; // color
           this.texture = texture; // texture
@@ -418,7 +454,38 @@ export default class ScriptCanvas extends HTMLCanvasElement {
           this.transparent = transparent; // transparent
         }
       }, // tiny Material class
-      Light: class Light {
+      tPlane: class Plane {
+        constructor (x, y, z, w, h, rx, ry, rz, sx, sy, sz, c) {
+          this.x = x; // x position
+          this.y = y; // y position
+          this.z = z; // z position
+          this.w = w; // width
+          this.h = h; // height
+          this.rx = rx; // x rotation
+          this.ry = ry; // y rotation
+          this.rz = rz; // z rotation
+          this.sx = sx; // x scale
+          this.sy = sy; // y scale
+          this.sz = sz; // z scale
+          this.c = c; // color
+        }
+      }, // tiny Plane class
+      tSphere: class Sphere {
+        constructor (x, y, z, r, rx, ry, rz, sx, sy, sz, c) {
+          this.x = x; // x position
+          this.y = y; // y position
+          this.z = z; // z position
+          this.r = r; // radius
+          this.rx = rx; // x rotation
+          this.ry = ry; // y rotation
+          this.rz = rz; // z rotation
+          this.sx = sx; // x scale
+          this.sy = sy; // y scale
+          this.sz = sz; // z scale
+          this.c = c; // color
+        }
+      }, // tiny Sphere class
+      tLight: class Light {
         constructor (x, y, z, color, intensity) {
           this.x = x; // x position
           this.y = y; // y position
@@ -427,7 +494,7 @@ export default class ScriptCanvas extends HTMLCanvasElement {
           this.intensity = intensity; // intensity
         }
       }, // tiny Light class
-      Camera: class Camera {
+      tCamera: class Camera {
         constructor (x, y, z, rx, ry, rz, fov, near, far) {
           this.x = x; // x position
           this.y = y; // y position
@@ -440,7 +507,7 @@ export default class ScriptCanvas extends HTMLCanvasElement {
           this.far = far; // far plane
         }
       }, // tiny Camera class
-      Scene: class Scene {
+      tScene: class Scene {
         constructor (objects, lights, camera) {
           this.objects = objects; // objects
           this.lights = lights; // lights
@@ -452,7 +519,7 @@ export default class ScriptCanvas extends HTMLCanvasElement {
         removeLight (l) { this.lights.splice(this.lights.indexOf(l), 1); }; // remove light
       }, // tiny Scene class
       // basic renderer
-      Renderer: class Renderer { 
+      tRenderer: class Renderer { 
 
         constructor (scene, canvas, width, height) {
           this.scene = scene; // scene
@@ -621,17 +688,14 @@ export default class ScriptCanvas extends HTMLCanvasElement {
       cp: x.closePath,
       f: x.fill,
       fs: (x.fillStyle = R(255)),
-      fl: x.fillRect,
       fR: x.fillRect,
       lT: x.lineTo,
       mT: x.moveTo,
       sT: x.stroke,
-      ss: (x.strokeStyle = R(255)),
-      sl: x.strokeRect,
-      sr: x.strokeRect,
-      st: x.strokeText,
-      Ft: x.fillText,
-      w: (x.lineWidth = R(10)),
+      sS: (x.strokeStyle = R(255)),
+      sL: x.strokeLine,
+      sR: x.strokeRect,
+      sT: x.strokeText
     };
     const m = {
       a,
@@ -675,9 +739,20 @@ export default class ScriptCanvas extends HTMLCanvasElement {
   }
 
   _scriptRunner() {
-    if (!this._active || this._paused) {
+    // if not active, return after cleaning up interval if needed
+    if (!this._active) {
+      if(this._scriptInterval) {
+        clearInterval(this._scriptInterval);
+        this._scriptInterval = null;
+      }
       return;
     }
+    // if paused then just exit the render without touching interval
+    if(this._paused) {
+      return;
+    }
+
+    // setup the context
     this.setupContext();
 
     try {

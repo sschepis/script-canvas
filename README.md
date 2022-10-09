@@ -2,11 +2,52 @@
 
 This package implements the script canvas WebComponent. This WebComponent allows you to run a script in a canvas element. This component runs scripts which are Dwitter-compatible. This means that if the script can be run in the browser console at [www.dwitter.net](https://www.dwitter.net), it will work in the script canvas.
 
+This component is useful for creating interactive art, or for creating interactive visualizations of data. The component conntains a number of useful functions for drawing to the canvas, and for interacting with the canvas. The component also contains a number of useful functions for rendering data to the canvas, including a Scene, a Camera, Meshes, Materials, and Lights.
+
 ## Usage
 
 pass the script directly by passing text or a function in the script attribute:
 ```html
 <script-canvas script="t=>t"></script-canvas>
+```
+
+You can control the pause state of the script by setting the paused attribute:
+```html
+<script-canvas paused></script-canvas>
+```
+
+You can control the speed of the script by setting the fps attribute:
+```html
+<script-canvas fps="30"></script-canvas>
+```
+
+You can control the size of the canvas by setting the width and height attributes:
+```html
+<script-canvas width="500" height="500"></script-canvas>
+```
+
+You can reset the script by calling the reset method:
+```html
+<script-canvas id="canvas"></script-canvas>
+<script>
+  document.getElementById('canvas').reset();
+</script>
+```
+
+You can pause the script by calling the pause method:
+```html
+<script-canvas id="canvas"></script-canvas>
+<script>
+  document.getElementById('canvas').pause();
+</script>
+```
+
+You can resume the script by calling the resume method:
+```html
+<script-canvas id="canvas"></script-canvas>
+<script>
+  document.getElementById('canvas').resume();
+</script>
 ```
 
 ## Attributes
@@ -448,7 +489,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-* **Sebastian Schepis** - *Initial work* - [joepea](
+* **Sebastian Schepis** - *Initial work* - [sschepis](https://github.com/sschepis)
 # License
 
 MIT
