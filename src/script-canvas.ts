@@ -303,7 +303,7 @@ class ScriptCanvas extends HTMLCanvasElement {
 
     // draw the sparkline chart
     var path = new Path2D();
-    path.rect(this.x + 10, this.y - 10, 100, 20);
+    path.rect(this.x + 10, this.y - 10, 150, 20);
     ctx.fillStyle = "#fff";
     ctx.fill(path);
     ctx.strokeStyle = "#000";
@@ -312,7 +312,7 @@ class ScriptCanvas extends HTMLCanvasElement {
     // draw the current fps value
     ctx.font = "10px arial";
     ctx.fillStyle = "black";
-    ctx.fillText(this.stack[this.stack.length - 1].toFixed(4) + '', this.x + 120, this.y + 5);
+    ctx.fillText(this.stack[this.stack.length - 1].toFixed(2) + '', this.x + 120, this.y + 5);
 
     // draw the sparkline chart
     var path = new Path2D();
