@@ -1,6 +1,6 @@
 {
   "name": "@sschepis/script-canvas",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "description": "A web component which implements a canvas with a script attribute.",
   "main": "lib/script-canvas.js",

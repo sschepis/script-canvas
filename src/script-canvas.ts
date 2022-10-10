@@ -236,10 +236,10 @@ class ScriptCanvas extends HTMLCanvasElement {
       sS: x.strokeStyle,
       sR: x.strokeRect,
       sT: x.strokeText,
-      U: (x:any,y:any,x1:any,y1:any,c:any) => {
-        x.strokeStyle = c
+      U: (_x:any,_y:any,x1:any,y1:any,_c:any) => {
+        x.strokeStyle = _c
         x.beginPath()
-        x.moveTo(x,y)
+        x.moveTo(_x,_y)
         x.lineTo(x1,y1)
         x.stroke()
       }
