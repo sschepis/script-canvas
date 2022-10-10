@@ -1,19 +1,22 @@
 {
   "name": "@sschepis/script-canvas",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "type": "module",
   "description": "A web component which implements a canvas with a script attribute.",
-  "main": "script-canvas.js",
-  "module": "script-canvas.js",
+  "main": "lib/script-canvas.js",
+  "module": "lib/script-canvas.js",
   "scripts": {
     "test": "web-test-runner test/**/*.test.html --node-resolve",
     "watch": "web-test-runner test/**/*.test.html --node-resolve --watch",
     "coverage": "web-test-runner test/**/*.test.html --node-resolve --coverage",
     "transform": "web-test-runner test/**/*.test.html --node-resolve --esbuild-target auto",
-    "build": "esbuild script-canvas.js --bundle --outfile=./dist/script-canvas.min.js --minify --sourcemap",
-    "start": "es-dev-server --node-resolve --watch --open",
-    "lint": "eslint . --ext .js,.html",
-    "format": "prettier --write .",
+    "prebuild": "npm run clean",
+    "build": "tsc && npm run package",
+    "clean": "rimraf ./lib",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:types": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
     "npm-publish": "npm run build && npm publish",
     "example": "es-dev-server --node-resolve --watch --open --app-index ./example/index.html"
   },
@@ -41,6 +44,8 @@
     "es-dev-server": "^2.1.0",
     "esbuild": "^0.15.10",
     "eslint": "^8.25.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4",
+    "typescript-eslint": "0.0.1-alpha.0"
   }
 }

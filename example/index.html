@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Example</title>
+    <style>
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
   <body>
-    <canvas id="canvas" is="script-canvas"></canvas>
+    <canvas id="canvas" is="script-canvas" fps="60"></canvas>
     <script type="module">
+      import ScriptCanvas from '../lib/script-canvas';
+      // Export module on window.
+      window.ScriptCanvas = ScriptCanvas;
+      
       // this is a simple example of how to use the script-canvas component.
       // it is not a complete example, but it should give you an idea of how to use it.
       // for a complete example, see the test suite in the test directory.
-      import ScriptCanvas from "../script-canvas.js";
       const canvas = document.querySelector("#canvas");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const script = "for(i=2e4,f=(X,Y,n=0)=>Y<9?f(X*X-Y*Y-.8,2*X*Y+.6,n+.3):x.fillStyle=`hsl(${i/4},99%,${n*n}%`;i--;x.fillRect(i,t*60,1,999))f(i/480-2,1-t/9)";
+      const script = "for(i=c.width=1920;i--;x.fillRect(960+C($)*_,540-6+S($)*_,9,9))$=i/999*Math.PI*t,_=500*S(t+i/4),x.fillStyle=`hsla(${_},99%,50%,1)`;";
       canvas.setAttribute("script", script);
+      canvas.setAttribute("fps-overlay", true);
     </script>
   </body>
 </html>
